@@ -1,0 +1,24 @@
+class MainActivity : AppCompatActivity() {
+
+  private var mRewardedAd: RewardedAd? = null
+  private final var TAG = 'MainActivity'
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
+
+    var adRequest = AdRequest.Builder().build()
+
+    RewardedAd.load(this,"ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
+      override fun onAdFailedToLoad(adError: LoadAdError) {
+        Log.d(TAG, adError?.message)
+        mRewardedAd = null
+      }
+
+      override fun onAdLoaded(rewardedAd: RewardedAd) {
+        Log.d(TAG, "Ad was loaded.")
+        mRewardedAd = rewardedAd
+       }
+    })
+  }
+}/build
